@@ -1,20 +1,25 @@
 package com.codegym.model;
 
+import lombok.Data;
 import org.hibernate.annotations.NaturalId;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
 @Entity
+@Data
 @Table(name = "roles")
-public class Role {
+public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING) //Khi thực hiện insert dữ liệu, khai báo kiểu dữ liệu, thay vì dùng kiểu String, ta dùng kiểu Enum như thế khi code sẽ đảm bảo được giữ liệu chỉ nhận các giá trị nhất định.
-    @NaturalId
+
     @Column(length = 60)
-    private RoleName name;
+    private String name;
 
-
+    @Override
+    public String getAuthority() {
+        return name;
+    }
 }
