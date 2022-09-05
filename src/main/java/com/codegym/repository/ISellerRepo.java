@@ -1,4 +1,7 @@
 package com.codegym.repository;
 
-public interface ISellerRepo {
+import com.codegym.model.Seller;
+import org.springframework.data.repository.CrudRepository;
+
+public interface ISellerRepo extends CrudRepository<Seller, Long> {
 }

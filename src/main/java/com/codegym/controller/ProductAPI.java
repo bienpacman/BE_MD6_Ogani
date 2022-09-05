@@ -36,7 +36,7 @@ public class ProductAPI {
     public void delete(@PathVariable Long id){
         productService.delete(id);
     }
-
+    //cập nhật sản phẩm
     @PostMapping("/edit-product/{id}")
     public void edit(@RequestBody Product product){
         productService.save(product);

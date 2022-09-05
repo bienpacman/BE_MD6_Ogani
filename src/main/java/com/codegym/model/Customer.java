@@ -16,6 +16,8 @@ public class Customer {
     @Lob //chú thích cùng với @Column để nói rằng cột đó có kiểu BLOB
     private String avatar;
     @NotBlank
+    private String address;
+    @NotBlank
     private String phoneNumber;
     @OneToOne
     @JoinColumn(name = "user_id")
