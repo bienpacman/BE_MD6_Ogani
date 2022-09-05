@@ -13,8 +13,12 @@ public class ProductService {
     @Autowired
     IProductRepo iProductRepo;
 
-    public List<Product> getAllBySeller(Seller seller){
-        List<Product> products = iProductRepo.getAllBySeller(seller);
+    public List<Product> getAllBySeller(Long id){
+        List<Product> products = iProductRepo.getAllBySellerId(id);
+        return products;
+    }
+    public List<Product> getAllProduct(){
+        List<Product> products = iProductRepo.getAllProduct();
         return products;
     }
 

@@ -8,5 +8,8 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface IProductRepo extends CrudRepository<Product, Long> {
-    List<Product> getAllBySeller(Seller seller);
+    @Query(nativeQuery = true, value = "SELECT * FROM md6_case.product where seller_id =:id;")
+    List<Product> getAllBySellerId(Long id);
+    @Query(nativeQuery = true, value = "SELECT * FROM md6_case.product;")
+    List<Product> getAllProduct();
 }
