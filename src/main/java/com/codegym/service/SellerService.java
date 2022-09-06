@@ -41,5 +41,11 @@ public class SellerService {
     }
     
 
+    public Page<Seller> showActiveSeller(Boolean isActive, Pageable pageable){
+        return iSellerRepo.findSellerByIsAccept(isActive, pageable);
+    }
 
+    public Page<Seller> showSeller(Pageable pageable){
+        return iSellerRepo.showSeller(pageable);
+    }
 }

@@ -7,6 +7,7 @@ import com.codegym.service.AppUserService;
 import com.codegym.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -28,14 +30,14 @@ public class AdminAPI {
     SellerService sellerService;
 
 
-    @GetMapping
-    public ResponseEntity<?> showListMerchant(@PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
-        Page<Seller> sellers = sellerService.findAll(pageable);
-        if (sellers.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(sellers, HttpStatus.OK);
-    }
+//    @GetMapping("/{isActive}")
+//    public ResponseEntity<?> showListSeller(@PathVariable Boolean isActive,@PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
+//        Page<Seller> sellers = sellerService.showActiveSeller(isActive,pageable);
+//        if (sellers.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//        return new ResponseEntity<>(sellers, HttpStatus.OK);
+//    }
 
     @GetMapping("/request")
     public ResponseEntity<List<Seller>> showWaitingSeller(){
@@ -53,15 +55,24 @@ public class AdminAPI {
         return sellerService.findByName(name);
     }
 
-    @PostMapping("/accept")
-    public HttpEntity<Seller> acceptSeller(@RequestBody Seller seller){
-       seller.setIsAccept(true);
-        return new HttpEntity<Seller>(sellerService.save(seller)) ;
+
+    @PostMapping("/accept/{id}")
+    public HttpEntity<Seller> acceptSeller(@PathVariable Long id ){
+       Optional<Seller> seller = sellerService.findById(id);
+       Seller newSeller = seller.get();
+        newSeller.setIsAccept(true);
+        return new HttpEntity<Seller>(sellerService.save(newSeller)) ;
     }
 
     @GetMapping("/delete/{id}")
     public void delete(@PathVariable Long id){
         sellerService.deleteSeller(id);
+    }
+
+    @GetMapping("/show/{page}")
+    public ResponseEntity<Page<Seller>> showSeller(@PathVariable(required = true)int page){
+        Page<Seller> sellers = sellerService.showActiveSeller(true,PageRequest.of(page, 5, Sort.by("name")));
+        return new ResponseEntity<>(sellers, HttpStatus.OK);
     }
 
 }

@@ -15,5 +15,6 @@ public interface IAppUserRepo extends CrudRepository<AppUser, Long> {
     List<AppUser> getAppUserAsSeller();
 
 
+
 }
 
