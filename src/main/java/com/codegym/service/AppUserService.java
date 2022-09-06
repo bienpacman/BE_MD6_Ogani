@@ -1,6 +1,7 @@
 package com.codegym.service;
 
 import com.codegym.model.AppUser;
+import com.codegym.model.Seller;
 import com.codegym.repository.IAppUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -8,6 +9,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -30,7 +34,19 @@ public class AppUserService implements UserDetailsService {
         return appUser;
     }
 
+    public List<AppUser> getAppUserAsSeller(){
+        return iAppUserRepo.getAppUserAsSeller();
+    }
+
+
+
     public AppUser save(AppUser appUser){
         return iAppUserRepo.save(appUser);
     }
+
+    public void delete(Long id) {
+        iAppUserRepo.deleteById(id);
+    }
+
+
 }
