@@ -46,6 +46,8 @@ public class AdminAPI {
         return new ResponseEntity<>(sellers, HttpStatus.OK);
 
     }
+
+
     @GetMapping("/search")
     public Iterable<Seller> findByName(@RequestParam(defaultValue = "")String name){
         return sellerService.findByName(name);

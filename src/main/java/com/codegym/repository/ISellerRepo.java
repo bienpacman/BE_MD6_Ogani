@@ -22,4 +22,5 @@ public interface ISellerRepo extends JpaRepository<Seller, Long> {
 
 
 
+
 }

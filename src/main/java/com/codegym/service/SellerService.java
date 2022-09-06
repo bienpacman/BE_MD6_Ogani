@@ -39,5 +39,7 @@ public class SellerService {
     public Iterable<Seller> findByName(String name){
         return iSellerRepo.findAllByNameContaining(name);
     }
+    
+
 
 }
