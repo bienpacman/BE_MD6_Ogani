@@ -37,7 +37,7 @@ public class AdminAPI {
         return new ResponseEntity<>(sellers, HttpStatus.OK);
     }
 
-    @GetMapping("/waitingSeller")
+    @GetMapping("/request")
     public ResponseEntity<List<Seller>> showWaitingSeller(){
         List<Seller> sellers = sellerService.getWaitingAcceptSeller();
         if (sellers.isEmpty()){
