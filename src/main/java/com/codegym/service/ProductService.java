@@ -13,8 +13,8 @@ public class ProductService {
     @Autowired
     IProductRepo iProductRepo;
 
-    public List<Product> getAllBySeller(Long id){
-        List<Product> products = iProductRepo.getAllBySellerId(id);
+    public List<Product> getAllProductBySeller(Long id){
+        List<Product> products = iProductRepo.getAllProductBySellerId(id);
         return products;
     }
     public List<Product> getAllProduct(){
@@ -30,7 +30,7 @@ public class ProductService {
         iProductRepo.deleteById(id);
     }
 
-    public Product findById(long id){
-        return iProductRepo.findById(id).get();
+    public Product getProductById(long id){
+        return iProductRepo.getProductById(id);
     }
 }
