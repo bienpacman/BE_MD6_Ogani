@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,6 +26,13 @@ public class AppUserService implements UserDetailsService {
         return (List<AppUser>) iAppUserRepo.findAll();
     }
 
+    public List<String> getAllEmails() {
+        List<String> emails = new ArrayList<>();
+        for (AppUser e: getAll()) {
+            emails.add(e.getUsername());
+        }
+        return emails;
+    }
     public AppUser findByUserName(String username){
         AppUser appUser = iAppUserRepo.findByUsername(username);
         return appUser;

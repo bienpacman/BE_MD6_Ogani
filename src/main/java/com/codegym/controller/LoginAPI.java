@@ -36,6 +36,9 @@ public class LoginAPI {
     @Autowired
     AddressService addressService;
 
+    @Autowired
+    MailerController mailerController;
+
 
     @PostMapping("/login")
     public UserToken login(@RequestBody AppUser appUser){
@@ -58,6 +61,7 @@ public class LoginAPI {
     public ResponseEntity<AppUser> register(@RequestBody Seller seller){
         appUserService.save(seller.getAppUser());
         sellerService.save(seller);
+        mailerController.sendEmail(seller.getAppUser());
         return new ResponseEntity<>(seller.getAppUser(), HttpStatus.OK);
     }
 
@@ -65,6 +69,7 @@ public class LoginAPI {
     public ResponseEntity<AppUser> register(@RequestBody Customer customer){
         appUserService.save(customer.getAppUser());
         customerService.save(customer);
+        mailerController.sendEmail(customer.getAppUser());
         // tạo phương thức tìm Customer theo userName
         Customer customer1 = customerService.findCustomerByUserName(customer.getAppUser().getUsername());
         // add vào address để tạo đối tượng
