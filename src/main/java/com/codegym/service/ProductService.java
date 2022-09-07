@@ -4,6 +4,8 @@ import com.codegym.model.Product;
 import com.codegym.model.Seller;
 import com.codegym.repository.IProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,9 +19,8 @@ public class ProductService {
         List<Product> products = iProductRepo.getAllProductBySellerId(id);
         return products;
     }
-    public List<Product> getAllProduct(){
-        List<Product> products = iProductRepo.getAllProduct();
-        return products;
+    public Page<Product> getAllProduct(Boolean isDelete, Pageable pageable){
+        return iProductRepo.findProductByIsDelete(isDelete, pageable);
     }
 
     public void save(Product product){
@@ -33,4 +34,10 @@ public class ProductService {
     public Product getProductById(long id){
         return iProductRepo.getProductById(id);
     }
+
+    public Product findProductById(Long id){
+        return iProductRepo.findProductById(id);
+    }
+
+
 }
