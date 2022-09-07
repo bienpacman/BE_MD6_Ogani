@@ -16,12 +16,11 @@ public class Product {
     private String name;
     @Lob
     private String image;
-    @Min(0)
-    private int quantityStorage;
     private String description;
     @Min(0)
     private double price;
     @Column (columnDefinition = "INT default 0")
+    @Min(0)
     private Integer quantityStorage;
     @Column (columnDefinition = "BIGINT default 0")
     private Long sold;
