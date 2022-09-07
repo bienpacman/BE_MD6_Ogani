@@ -3,6 +3,7 @@ package com.codegym.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -15,7 +16,10 @@ public class Product {
     private String name;
     @Lob
     private String image;
+    @Min(0)
+    private int quantityStorage;
     private String description;
+    @Min(0)
     private double price;
     @Column (columnDefinition = "INT default 0")
     private Integer quantityStorage;
