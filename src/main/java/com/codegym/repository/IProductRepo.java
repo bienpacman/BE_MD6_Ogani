@@ -14,4 +14,6 @@ public interface IProductRepo extends JpaRepository<Product, Long> {
     List<Product> getAllProduct();
     @Query(nativeQuery = true, value = "SELECT * FROM md6_case.product where id =:id ;")
     Product getProductById(Long id);
+
+
 }
