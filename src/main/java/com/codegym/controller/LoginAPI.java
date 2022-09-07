@@ -61,7 +61,6 @@ public class LoginAPI {
     public ResponseEntity<AppUser> register(@RequestBody Seller seller){
         appUserService.save(seller.getAppUser());
         sellerService.save(seller);
-        mailerController.sendEmail(seller.getAppUser());
         return new ResponseEntity<>(seller.getAppUser(), HttpStatus.OK);
     }
 

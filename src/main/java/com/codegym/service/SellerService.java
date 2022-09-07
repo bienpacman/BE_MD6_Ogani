@@ -1,5 +1,6 @@
 package com.codegym.service;
 
+import com.codegym.model.AppUser;
 import com.codegym.model.Seller;
 import com.codegym.repository.ISellerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,9 @@ public class SellerService {
 
     public Page<Seller> showSeller(Pageable pageable){
         return iSellerRepo.showSeller(pageable);
+    }
+
+    public Seller findByAppUser(AppUser appUser) {
+        return iSellerRepo.findSellerByAppUser(appUser);
     }
 }

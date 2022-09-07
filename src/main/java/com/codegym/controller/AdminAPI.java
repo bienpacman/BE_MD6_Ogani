@@ -29,6 +29,9 @@ public class AdminAPI {
     @Autowired
     SellerService sellerService;
 
+    @Autowired
+    MailerController mailerController;
+
 
 //    @GetMapping("/{isActive}")
 //    public ResponseEntity<?> showListSeller(@PathVariable Boolean isActive,@PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
@@ -61,7 +64,9 @@ public class AdminAPI {
        Optional<Seller> seller = sellerService.findById(id);
        Seller newSeller = seller.get();
         newSeller.setIsAccept(true);
-        return new HttpEntity<Seller>(sellerService.save(newSeller)) ;
+        sellerService.save(newSeller);
+        mailerController.sendEmail(newSeller.getAppUser());
+        return new HttpEntity<Seller>(newSeller) ;
     }
 
     @GetMapping("/delete/{id}")

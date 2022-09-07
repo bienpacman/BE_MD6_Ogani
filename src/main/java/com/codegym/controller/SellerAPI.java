@@ -1,7 +1,11 @@
 package com.codegym.controller;
 
+import com.codegym.model.AppUser;
 import com.codegym.model.Product;
+import com.codegym.model.Seller;
+import com.codegym.service.AppUserService;
 import com.codegym.service.ProductService;
+import com.codegym.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +19,18 @@ import java.util.List;
 public class SellerAPI {
     @Autowired
     ProductService productService;
+
+    @Autowired
+    SellerService sellerService;
+
+    @Autowired
+    AppUserService appUserService;
     // lấy sản phẩm theo id người bán
-    @GetMapping("/{seller_id}")
-    public ResponseEntity<List<Product>> getAllProductBySeller(@PathVariable Long seller_id){
-        return new ResponseEntity<>((List<Product>) productService.getAllProductBySeller(seller_id), HttpStatus.OK) ;
+    @GetMapping()
+    public ResponseEntity<List<Product>> getAllProductBySeller(@RequestBody String userName){
+        AppUser appUser = appUserService.findByUserName(userName);
+        Seller seller = sellerService.findByAppUser(appUser);
+        return new ResponseEntity<>((List<Product>) productService.getAllProductBySeller(seller.getId()), HttpStatus.OK) ;
     }
 
     //tạo sản phẩm

@@ -1,5 +1,6 @@
 package com.codegym.repository;
 
+import com.codegym.model.AppUser;
 import com.codegym.model.Product;
 import com.codegym.model.Seller;
 import org.springframework.data.domain.Page;
@@ -25,5 +26,5 @@ public interface ISellerRepo extends JpaRepository<Seller, Long> {
     @Query(nativeQuery = true, value = "select * from seller where is_accept = true;")
     Page<Seller>showSeller(Pageable pageable);
 
-
+    Seller findSellerByAppUser(AppUser appUser);
 }
