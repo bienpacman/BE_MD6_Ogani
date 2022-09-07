@@ -17,8 +17,12 @@ public class Product {
     private String image;
     private String description;
     private double price;
+    @Column (columnDefinition = "INT default 0")
+    private Integer quantityStorage;
     @Column (columnDefinition = "BIGINT default 0")
     private Long sold;
+    @Column(name = "is_Delete", columnDefinition = "boolean default false")
+    private Boolean isDelete;
     @ManyToOne
     private ProductCategory productCategory;
     @ManyToOne

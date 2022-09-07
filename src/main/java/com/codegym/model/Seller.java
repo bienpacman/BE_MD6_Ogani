@@ -20,11 +20,19 @@ public class Seller {
     private String phoneNumber;
     @Lob
     private String avatar;
+    @Lob
+    private String imageBanner;
     @NotBlank
     private String address;
+
     @Column(name = "is_Accept", columnDefinition = "boolean default false")
     private Boolean isAccept;
+
+    @Column(name = "is_Active", columnDefinition = "boolean default true")
+    private Boolean isActive;
+
     @OneToOne
     @JoinColumn(name = "user_id")
     private AppUser appUser;
+
 }
