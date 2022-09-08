@@ -15,8 +15,8 @@ public class ProductService {
     @Autowired
     IProductRepo iProductRepo;
 
-    public List<Product> getAllProductBySeller(Long id){
-        List<Product> products = iProductRepo.getAllProductBySellerId(id);
+    public Page<Product> getAllProductBySeller(Long id, Pageable pageable){
+        Page<Product> products = iProductRepo.findProductBySellerId(id, pageable);
         return products;
     }
     public Page<Product> getAllProduct(Boolean isDelete, Pageable pageable){
@@ -31,11 +31,7 @@ public class ProductService {
         iProductRepo.deleteById(id);
     }
 
-    public Product getProductById(long id){
-        return iProductRepo.getProductById(id);
-    }
-
-    public Product findProductById(Long id){
+    public Product findProductById(long id){
         return iProductRepo.findProductById(id);
     }
 

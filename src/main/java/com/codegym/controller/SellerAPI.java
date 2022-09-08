@@ -7,8 +7,12 @@ import com.codegym.service.AppUserService;
 import com.codegym.service.ProductService;
 import com.codegym.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,11 +30,12 @@ public class SellerAPI {
     @Autowired
     AppUserService appUserService;
     // lấy sản phẩm theo id người bán
-    @GetMapping()
-    public ResponseEntity<List<Product>> getAllProductBySeller(@RequestBody String userName){
+    @GetMapping("/show/{page}")
+    public ResponseEntity<Page<Product>> getAllProductBySeller(@RequestBody String userName, @PathVariable(required = true)int page){
         AppUser appUser = appUserService.findByUserName(userName);
         Seller seller = sellerService.findByAppUser(appUser);
-        return new ResponseEntity<>((List<Product>) productService.getAllProductBySeller(seller.getId()), HttpStatus.OK) ;
+        Page<Product> products = productService.getAllProductBySeller(seller.getId(), PageRequest.of(page, 5, Sort.by("name")));
+        return new ResponseEntity<>(products, HttpStatus.OK) ;
     }
 
     //tạo sản phẩm
@@ -57,7 +62,7 @@ public class SellerAPI {
 
     @GetMapping("/get-product/{id}")
     public ResponseEntity getProductById(@PathVariable Long id){
-        return new ResponseEntity<>(productService.getProductById(id), HttpStatus.OK);
+        return new ResponseEntity<>(productService.findProductById(id), HttpStatus.OK);
     }
 
 }
