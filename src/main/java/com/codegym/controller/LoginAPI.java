@@ -1,10 +1,7 @@
 package com.codegym.controller;
 
 import com.codegym.dto.UserToken;
-import com.codegym.model.Address;
-import com.codegym.model.AppUser;
-import com.codegym.model.Customer;
-import com.codegym.model.Seller;
+import com.codegym.model.*;
 import com.codegym.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,7 +38,7 @@ public class LoginAPI {
 
 
     @PostMapping("/login")
-    public UserToken login(@RequestBody AppUser appUser){
+    public UserToken login(@RequestBody AppUser appUser) {
         try {
             // Tạo ra 1 đối tượng Authentication.
             Authentication authentication = authenticationManager.authenticate(
@@ -50,11 +47,26 @@ public class LoginAPI {
 
             String token = jwtService.createToken(authentication);
             AppUser appUser1 = appUserService.findByUserName(appUser.getUsername());
-            return new UserToken(appUser1.getId(),appUser1.getUsername(),token,appUser1.getRoles());
+
+
+            for (Role element : appUser1.getRoles()) {
+                System.out.println(element);
+                if ((element.getName().equals("ROLE_CUSTOMER") || element.getName().equals("ROLE_ADMIN")) && appUser1.getRoles().size() == 1) {
+                    return new UserToken(appUser1.getId(), appUser1.getUsername(), token, appUser1.getRoles());
+                } else {
+                    Seller seller = sellerService.findByAppUser(appUser1);
+                    if (seller.getIsAccept()) {
+                        return new UserToken(appUser1.getId(), appUser1.getUsername(), token, appUser1.getRoles());
+                    } else {
+                        return null;
+                    }
+                }
+            }
+
         } catch (Exception e) {
             return null;
         }
-
+     return null;
     }
 
     @PostMapping("/registerSeller")
