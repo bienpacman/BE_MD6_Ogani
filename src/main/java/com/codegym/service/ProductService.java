@@ -16,7 +16,7 @@ public class ProductService {
     IProductRepo iProductRepo;
 
     public Page<Product> getAllProductBySeller(Long id, Pageable pageable){
-        Page<Product> products = iProductRepo.getAllProductBySellerId(id, pageable);
+        Page<Product> products = iProductRepo.findProductBySellerId(id, pageable);
         return products;
     }
     public List<Product> getAllProduct(){
