@@ -77,4 +77,9 @@ public class SellerAPI {
         return new ResponseEntity<>(productCategoryService.getAllCategory(), HttpStatus.OK);
     }
 
+    @GetMapping("/{sellerId}")
+    public ResponseEntity<Seller> getSeller(@PathVariable Long sellerId){
+        return new ResponseEntity<>(sellerService.findByAppUser(appUserService.findByUserId(sellerId).get()), HttpStatus.OK);
+    }
+
 }
