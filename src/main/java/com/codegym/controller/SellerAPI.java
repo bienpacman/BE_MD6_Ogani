@@ -2,8 +2,10 @@ package com.codegym.controller;
 
 import com.codegym.model.AppUser;
 import com.codegym.model.Product;
+import com.codegym.model.ProductCategory;
 import com.codegym.model.Seller;
 import com.codegym.service.AppUserService;
+import com.codegym.service.ProductCategoryService;
 import com.codegym.service.ProductService;
 import com.codegym.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +30,12 @@ public class SellerAPI {
     SellerService sellerService;
 
     @Autowired
+    ProductCategoryService productCategoryService;
+
+    @Autowired
     AppUserService appUserService;
     // lấy sản phẩm theo id người bán
-    @GetMapping("/show/{page}")
+    @PostMapping("/show/{page}")
     public ResponseEntity<Page<Product>> getAllProductBySeller(@RequestBody String userName, @PathVariable(required = true)int page){
         AppUser appUser = appUserService.findByUserName(userName);
         Seller seller = sellerService.findByAppUser(appUser);
@@ -39,10 +44,12 @@ public class SellerAPI {
     }
 
     //tạo sản phẩm
-    @PostMapping("/save-product")
-    public ResponseEntity<Product> save(@RequestBody Product product){
+    @PostMapping("/save-product/{userId}")
+    public ResponseEntity<Product> save(@RequestBody Product product, @PathVariable Long userId){
+        Seller seller = sellerService.findByAppUser(appUserService.findByUserId(userId).get());
+        product.setSeller(seller);
         productService.save(product);
-       return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //xóa sản phẩm
@@ -63,6 +70,11 @@ public class SellerAPI {
     @GetMapping("/get-product/{id}")
     public ResponseEntity getProductById(@PathVariable Long id){
         return new ResponseEntity<>(productService.getProductById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/get-category")
+    public ResponseEntity<List<ProductCategory>> getAllCategory(){
+        return new ResponseEntity<>(productCategoryService.getAllCategory(), HttpStatus.OK);
     }
 
 }

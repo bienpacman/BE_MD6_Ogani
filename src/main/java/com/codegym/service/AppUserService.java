@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AppUserService implements UserDetailsService {
@@ -40,6 +41,10 @@ public class AppUserService implements UserDetailsService {
     public AppUser findByUserName(String username){
         AppUser appUser = iAppUserRepo.findByUsername(username);
         return appUser;
+    }
+public Optional<AppUser> findByUserId(Long id){
+    Optional<AppUser> appUser = iAppUserRepo.findById(id);
+    return appUser;
     }
 
     public List<AppUser> getAppUserAsSeller(){
