@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 @Data
-@Table(name = "food_categories", uniqueConstraints = {
+@Table(name = "product_categories", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
                 "nameCategory"
         })
@@ -18,4 +18,6 @@ public class ProductCategory {
     private Long id;
     @NotBlank
     private String nameCategory;
+    @Lob
+    private String imageCategory;
 }

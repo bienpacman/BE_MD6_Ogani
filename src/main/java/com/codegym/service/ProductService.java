@@ -1,6 +1,7 @@
 package com.codegym.service;
 
 import com.codegym.model.Product;
+import com.codegym.model.ProductCategory;
 import com.codegym.model.Seller;
 import com.codegym.repository.IProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,19 @@ public class ProductService {
         return iProductRepo.findProductById(id);
     }
 
+    public List<Product> findProductBySold(){
+        return iProductRepo.findProductBySold();
+    }
 
+    public List<Product> findProductByPriceDown(Boolean isDelete){
+        return iProductRepo.findProductByIsDeleteOrderByPriceDesc(isDelete);
+    }
+
+    public List<Product> findProductByPriceUp(Boolean isDelete){
+        return iProductRepo.findProductByIsDeleteOrderByPriceAsc(isDelete);
+    }
+
+    public List<Product> filterByCategory(ProductCategory productCategory) {
+        return iProductRepo.findProductByProductCategory(productCategory);
+    }
 }
