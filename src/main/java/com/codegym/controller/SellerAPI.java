@@ -54,7 +54,7 @@ public class SellerAPI {
     }
 
     //xóa sản phẩm
-    @PostMapping("/delete-product/{id}")
+    @GetMapping("/delete-product/{id}")
     public ResponseEntity delete(@PathVariable Long id){
         productService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
@@ -69,8 +69,8 @@ public class SellerAPI {
     }
 
     @GetMapping("/get-product/{id}")
-    public ResponseEntity getProductById(@PathVariable Long id){
-        return new ResponseEntity<>(productService.findProductById(id), HttpStatus.OK);
+    public ResponseEntity<Product> getProductById(@PathVariable Long id){
+        return new ResponseEntity<Product>(productService.findProductById(id), HttpStatus.OK);
     }
 
     @GetMapping("/get-category")
