@@ -32,16 +32,6 @@ public class AdminAPI {
     @Autowired
     MailerController mailerController;
 
-
-//    @GetMapping("/{isActive}")
-//    public ResponseEntity<?> showListSeller(@PathVariable Boolean isActive,@PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
-//        Page<Seller> sellers = sellerService.showActiveSeller(isActive,pageable);
-//        if (sellers.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        }
-//        return new ResponseEntity<>(sellers, HttpStatus.OK);
-//    }
-
     @GetMapping("/request")
     public ResponseEntity<List<Seller>> showWaitingSeller(){
         List<Seller> sellers = sellerService.getWaitingAcceptSeller();

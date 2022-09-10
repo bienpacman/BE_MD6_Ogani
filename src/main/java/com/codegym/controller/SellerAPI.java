@@ -39,7 +39,8 @@ public class SellerAPI {
     public ResponseEntity<Page<Product>> getAllProductBySeller(@RequestBody String userName, @PathVariable(required = true)int page){
         AppUser appUser = appUserService.findByUserName(userName);
         Seller seller = sellerService.findByAppUser(appUser);
-        Page<Product> products = productService.getAllProductBySeller(seller.getId(), PageRequest.of(page, 5, Sort.by("name")));
+        //tham số page là số phần tử lấy ra từ Database
+        Page<Product> products = productService.getAllProductBySeller(seller.getId(), PageRequest.of(page, 100, Sort.by("name")));
         return new ResponseEntity<>(products, HttpStatus.OK) ;
     }
 
@@ -69,7 +70,7 @@ public class SellerAPI {
 
     @GetMapping("/get-product/{id}")
     public ResponseEntity getProductById(@PathVariable Long id){
-        return new ResponseEntity<>(productService.getProductById(id), HttpStatus.OK);
+        return new ResponseEntity<>(productService.findProductById(id), HttpStatus.OK);
     }
 
     @GetMapping("/get-category")

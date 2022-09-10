@@ -19,9 +19,8 @@ public class ProductService {
         Page<Product> products = iProductRepo.findProductBySellerId(id, pageable);
         return products;
     }
-    public List<Product> getAllProduct(){
-        List<Product> products = iProductRepo.getAllProduct();
-        return products;
+    public Page<Product> getAllProduct(Boolean isDelete, Pageable pageable){
+        return iProductRepo.findProductByIsDelete(isDelete, pageable);
     }
 
     public void save(Product product){
@@ -32,7 +31,9 @@ public class ProductService {
         iProductRepo.deleteById(id);
     }
 
-    public Product getProductById(long id){
-        return iProductRepo.getProductById(id);
+    public Product findProductById(long id){
+        return iProductRepo.findProductById(id);
     }
+
+
 }
