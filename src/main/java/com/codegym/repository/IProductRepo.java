@@ -23,6 +23,11 @@ public interface IProductRepo extends CrudRepository<Product, Long> {
 
     Page<Product> findProductByIsDelete(Boolean isDelete, Pageable pageable);
 
+    List<Product> findProductByIsDelete(Boolean isDelete);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM seller where name like concat('%',:name,'%');")
+    List<Product> findProductByNameContaining(String name);
+
     Product findProductById(Long id);
 
     @Query(nativeQuery = true, value = "SELECT * FROM md6_case.product order by sold desc limit 3")
@@ -33,5 +38,7 @@ public interface IProductRepo extends CrudRepository<Product, Long> {
     List<Product> findProductByIsDeleteOrderByPriceAsc(Boolean isDelete);
 
     List<Product> findProductByProductCategory(ProductCategory productCategory);
+
+    List<Product> findProductBySeller(Seller seller);
 
 }

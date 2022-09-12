@@ -2,9 +2,11 @@ package com.codegym.controller;
 
 import com.codegym.model.AppUser;
 import com.codegym.model.Product;
+import com.codegym.model.Sale;
 import com.codegym.model.Seller;
 import com.codegym.service.AppUserService;
 import com.codegym.service.ProductService;
+import com.codegym.service.SaleService;
 import com.codegym.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,6 +31,11 @@ public class SellerAPI {
 
     @Autowired
     AppUserService appUserService;
+
+    @Autowired
+    SaleService saleService;
+
+
     // lấy sản phẩm theo id người bán
     @GetMapping("/show/{page}")
     public ResponseEntity<Page<Product>> getAllProductBySeller(@RequestBody String userName, @PathVariable(required = true)int page){
@@ -64,5 +71,34 @@ public class SellerAPI {
     public ResponseEntity getProductById(@PathVariable Long id){
         return new ResponseEntity<>(productService.findProductById(id), HttpStatus.OK);
     }
+
+    // Lấy list khuyến mại
+    @PostMapping("/sale/{userName}")
+    public ResponseEntity<List<Sale>> showSaleList(@PathVariable String userName){
+        System.out.println(userName);
+        AppUser appUser = appUserService.findByUserName(userName);
+        Seller seller = sellerService.findByAppUser(appUser);
+        List<Sale> saleList = saleService.getAllSale(seller.getId());
+        return new ResponseEntity<>(saleList, HttpStatus.OK);
+    }
+
+    @PostMapping("/save-sale")
+    public ResponseEntity<Sale> save(@RequestBody Sale sale){
+        saleService.save(sale);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping ("/delete-sale/{id}")
+    public void deleteSale(@PathVariable Long id){
+        saleService.deleteSale(id);
+    }
+
+    @PostMapping("/edit-sale/{id}")
+    public ResponseEntity<Sale> editSale(@PathVariable Long id, @RequestBody Sale sale){
+        saleService.save(sale);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 
 }

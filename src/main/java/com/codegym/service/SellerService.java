@@ -42,8 +42,8 @@ public class SellerService {
     }
     
 
-    public Page<Seller> showActiveSeller(Boolean isActive, Pageable pageable){
-        return iSellerRepo.findSellerByIsAccept(isActive, pageable);
+    public List<Seller> showActiveSeller(Boolean isActive){
+        return iSellerRepo.findSellerByIsAccept(isActive);
     }
 
     public Page<Seller> showSeller(Pageable pageable){
@@ -52,5 +52,9 @@ public class SellerService {
 
     public Seller findByAppUser(AppUser appUser) {
         return iSellerRepo.findSellerByAppUser(appUser);
+    }
+
+    public Seller findSellerById(Long id) {
+        return iSellerRepo.findSellerById(id);
     }
 }

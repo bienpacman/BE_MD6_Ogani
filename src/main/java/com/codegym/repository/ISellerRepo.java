@@ -20,11 +20,17 @@ public interface ISellerRepo extends JpaRepository<Seller, Long> {
     @Query(nativeQuery = true, value = "SELECT * FROM seller where name like concat('%',:name,'%');")
     Iterable<Seller> findAllByNameContaining(String name);
     
-    Page<Seller> findSellerByIsAccept(Boolean isAccept, Pageable pageable);
+    List<Seller> findSellerByIsAccept(Boolean isAccept);
 
     @Query(nativeQuery = true, value = "select * from seller where is_accept = true;")
     Page<Seller>showSeller(Pageable pageable);
 
     Seller findSellerByAppUser(AppUser appUser);
+
+
+
+    Seller findSellerById(Long id);
+
+
 
 }
