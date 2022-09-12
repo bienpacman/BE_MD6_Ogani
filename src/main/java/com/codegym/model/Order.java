@@ -3,7 +3,8 @@ package com.codegym.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
+
 
 @Entity
 @Table( name = "orders")
@@ -13,7 +14,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Date createAt;
+    private Timestamp createAt;
     @ManyToOne
     private OrderStatus orderStatus;
     private double priceTotal;

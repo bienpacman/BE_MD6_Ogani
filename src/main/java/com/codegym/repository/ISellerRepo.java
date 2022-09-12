@@ -26,4 +26,5 @@ public interface ISellerRepo extends JpaRepository<Seller, Long> {
     Page<Seller>showSeller(Pageable pageable);
 
     Seller findSellerByAppUser(AppUser appUser);
+
 }

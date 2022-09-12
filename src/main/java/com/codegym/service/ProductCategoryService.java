@@ -14,4 +14,12 @@ public class ProductCategoryService {
     public List<ProductCategory> getAllCategory(){
         return iProductCategoryRepo.getAllCategory();
     }
+
+    public ProductCategory findCategoryById(Long id ){
+        return iProductCategoryRepo.findProductCategoryById(id);
+    }
+
+    public List<ProductCategory> getAllCategories(){
+        return iProductCategoryRepo.findAll();
+    }
 }

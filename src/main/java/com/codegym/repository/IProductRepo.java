@@ -1,6 +1,7 @@
 package com.codegym.repository;
 
 import com.codegym.model.Product;
+import com.codegym.model.ProductCategory;
 import com.codegym.model.Seller;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,4 +24,14 @@ public interface IProductRepo extends CrudRepository<Product, Long> {
     Page<Product> findProductByIsDelete(Boolean isDelete, Pageable pageable);
 
     Product findProductById(Long id);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM md6_case.product order by sold desc limit 3")
+    List<Product> findProductBySold();
+
+    List<Product> findProductByIsDeleteOrderByPriceDesc(Boolean isDelete);
+
+    List<Product> findProductByIsDeleteOrderByPriceAsc(Boolean isDelete);
+
+    List<Product> findProductByProductCategory(ProductCategory productCategory);
+
 }

@@ -18,4 +18,6 @@ public class ProductCategory {
     private Long id;
     @NotBlank
     private String nameCategory;
+    @Lob
+    private String imageCategory;
 }
