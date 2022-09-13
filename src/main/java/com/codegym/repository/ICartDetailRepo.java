@@ -1,4 +1,7 @@
 package com.codegym.repository;
 
-public interface ICartDetailRepo {
+import com.codegym.model.CartDetail;
+import org.springframework.data.repository.CrudRepository;
+
+public interface ICartDetailRepo extends CrudRepository<CartDetail,Long> {
 }

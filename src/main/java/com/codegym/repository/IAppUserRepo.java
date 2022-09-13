@@ -7,10 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface IAppUserRepo extends JpaRepository<AppUser, Long> {
     AppUser findByUsername(String username);
+
+    Optional<AppUser> findById(Long id);
 
     @Query(nativeQuery = true, value = "select * from users join user_role on users.id = user_role.user_id where role_id = 2; ")
     List<AppUser> getAppUserAsSeller();
