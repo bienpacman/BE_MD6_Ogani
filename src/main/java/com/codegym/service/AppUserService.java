@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AppUserService implements UserDetailsService {
     @Autowired
     IAppUserRepo iAppUserRepo;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser appUser = iAppUserRepo.findByUsername(username);
@@ -32,23 +34,28 @@ public class AppUserService implements UserDetailsService {
 
     public List<String> getAllEmails() {
         List<String> emails = new ArrayList<>();
-        for (AppUser e: getAll()) {
+        for (AppUser e : getAll()) {
             emails.add(e.getUsername());
         }
         return emails;
     }
-    public AppUser findByUserName(String username){
+
+    public AppUser findByUserName(String username) {
         AppUser appUser = iAppUserRepo.findByUsername(username);
         return appUser;
     }
 
-    public List<AppUser> getAppUserAsSeller(){
+    public Optional<AppUser> findByUserId(Long id) {
+        Optional<AppUser> appUser = iAppUserRepo.findById(id);
+        return appUser;
+    }
+
+    public List<AppUser> getAppUserAsSeller() {
         return iAppUserRepo.getAppUserAsSeller();
     }
 
 
-
-    public AppUser save(AppUser appUser){
+    public AppUser save(AppUser appUser) {
         return iAppUserRepo.save(appUser);
     }
 
