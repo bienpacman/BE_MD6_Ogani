@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -79,6 +81,16 @@ public class SellerAPI {
         AppUser appUser = appUserService.findByUserName(userName);
         Seller seller = sellerService.findByAppUser(appUser);
         List<Sale> saleList = saleService.getAllSale(seller.getId());
+        Date now = new Date();
+        Timestamp timestamp = new Timestamp(now.getTime());
+        for (Sale sale: saleList) {
+            if( timestamp.before(sale.getStartAt() ) ||(timestamp.after(sale.getStartAt()) && timestamp.before(sale.getEndAt()))) {
+                sale.setStatus(true);
+            }else {
+                sale.setStatus(false);
+            }
+
+        }
         return new ResponseEntity<>(saleList, HttpStatus.OK);
     }
 
