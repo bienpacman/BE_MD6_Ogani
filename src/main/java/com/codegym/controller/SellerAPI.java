@@ -96,6 +96,7 @@ public class SellerAPI {
 
     @PostMapping("/save-sale")
     public ResponseEntity<Sale> save(@RequestBody Sale sale){
+        System.out.println(sale);
         saleService.save(sale);
         return new ResponseEntity<>(HttpStatus.OK);
     }
