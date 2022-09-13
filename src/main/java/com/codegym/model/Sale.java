@@ -17,7 +17,7 @@ public class Sale {
     @NotBlank
     private String description;
     private double priceDiscount;
-    @Column(name = "status", columnDefinition = "boolean default true")
+    @Column(name = "status", columnDefinition = "boolean default false")
     private boolean status;
     private Timestamp startAt;
     private Timestamp endAt;

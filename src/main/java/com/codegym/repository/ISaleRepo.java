@@ -7,4 +7,9 @@ import java.util.List;
 
 public interface ISaleRepo extends JpaRepository<Sale, Long> {
     List<Sale> findSaleBySellerId(Long sellerId);
+
+    Sale findSaleById(Long id);
+
+    Sale save(Sale sale);
+    
 }

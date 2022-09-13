@@ -43,12 +43,6 @@ public class AdminAPI {
     }
 
 
-    @GetMapping("/search")
-    public Iterable<Seller> findByName(@RequestParam(defaultValue = "")String name){
-        return sellerService.findByName(name);
-    }
-
-
     @PostMapping("/accept/{id}")
     public HttpEntity<Seller> acceptSeller(@PathVariable Long id ){
        Optional<Seller> seller = sellerService.findById(id);
@@ -64,11 +58,32 @@ public class AdminAPI {
         sellerService.deleteSeller(id);
     }
 
-    @GetMapping("/show/{page}")
-    public ResponseEntity<Page<Seller>> showSeller(@PathVariable(required = true)int page){
-        Page<Seller> sellers = sellerService.showActiveSeller(true,PageRequest.of(page, 5, Sort.by("name")));
+    @GetMapping("/showSeller")
+    public ResponseEntity<List<Seller>> showSeller(){
+        List<Seller> sellers = sellerService.showActiveSeller(true);
         return new ResponseEntity<>(sellers, HttpStatus.OK);
     }
+
+    @GetMapping("/seller/{id}")
+    public ResponseEntity<Seller> findSellerById(@PathVariable Long id){
+        Seller seller = sellerService.findSellerById(id);
+        return new ResponseEntity<>(seller, HttpStatus.OK);
+    }
+
+    @PostMapping("/controlSeller/{id}")
+    public HttpEntity<Seller> controlSeller(@PathVariable Long id ){
+        Optional<Seller> seller = sellerService.findById(id);
+        Seller activatedSeller = seller.get();
+        if(activatedSeller.getIsActive()){
+            activatedSeller.setIsActive(false);
+        }else {
+            activatedSeller.setIsActive(true);
+        }
+        sellerService.save(activatedSeller);
+        mailerController.sendEmail(activatedSeller.getAppUser());
+        return new HttpEntity<Seller>(activatedSeller) ;
+    }
+
 
 }
 
