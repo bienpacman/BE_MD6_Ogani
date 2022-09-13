@@ -129,7 +129,4 @@ public class SellerAPI {
         saleService.save(sale);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
-
 }
