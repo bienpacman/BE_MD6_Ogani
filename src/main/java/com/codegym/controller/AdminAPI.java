@@ -37,6 +37,7 @@ public class AdminAPI {
     @Autowired
     CustomerService customerService;
 
+    //Quản lý seller
     @GetMapping("/request")
     public ResponseEntity<List<Seller>> showWaitingSeller(){
         List<Seller> sellers = sellerService.getWaitingAcceptSeller();
@@ -46,8 +47,6 @@ public class AdminAPI {
         return new ResponseEntity<>(sellers, HttpStatus.OK);
 
     }
-
-
     @PostMapping("/accept/{id}")
     public HttpEntity<Seller> acceptSeller(@PathVariable Long id ){
        Optional<Seller> seller = sellerService.findById(id);
@@ -89,6 +88,8 @@ public class AdminAPI {
         return new HttpEntity<Seller>(activatedSeller) ;
     }
 
+    //Quản lý Customer
+
     @GetMapping("/customer")
     public ResponseEntity<List<Customer>>showListCustomers(){
         List<Customer> customerList = customerService.getAllCustomers();
@@ -105,6 +106,12 @@ public class AdminAPI {
         }
         customerService.saveCustomer(customer);
         mailerController.sendEmail(customer.getAppUser());
+        return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
+
+    @GetMapping("/customer/{id}")
+    public ResponseEntity<Customer> findCustomerById(@PathVariable Long id) {
+        Customer customer = customerService.findCustomerById(id);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 

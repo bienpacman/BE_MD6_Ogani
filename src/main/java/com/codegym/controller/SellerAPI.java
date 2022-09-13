@@ -93,7 +93,7 @@ public class SellerAPI {
         return new ResponseEntity<>(sellerService.findByAppUser(appUserService.findByUserId(sellerId).get()), HttpStatus.OK);
     }
 
-    // Lấy list khuyến mại
+    // Quản lý khuyến mại
     @PostMapping("/sale/{userName}")
     public ResponseEntity<List<Sale>> showSaleList(@PathVariable String userName){
         System.out.println(userName);
