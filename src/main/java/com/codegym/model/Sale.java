@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
@@ -19,8 +20,8 @@ public class Sale {
     private double priceDiscount;
     @Column(name = "status", columnDefinition = "boolean default false")
     private boolean status;
-    private Timestamp startAt;
-    private Timestamp endAt;
+    private Date startAt;
+    private Date endAt;
 
     @ManyToOne
     private Seller seller;

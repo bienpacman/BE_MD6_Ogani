@@ -93,6 +93,13 @@ public class SellerAPI {
         return new ResponseEntity<>(sellerService.findByAppUser(appUserService.findByUserId(sellerId).get()), HttpStatus.OK);
     }
 
+    @PostMapping("/getSeller")
+    public ResponseEntity<Seller> getSellerByAppUser(@RequestBody String userName){
+        AppUser appUser = appUserService.findByUserName(userName);
+        Seller seller = sellerService.findByAppUser(appUser);
+        return new ResponseEntity<>(seller, HttpStatus.OK);
+    }
+
     // Quản lý khuyến mại
     @PostMapping("/sale/{userName}")
     public ResponseEntity<List<Sale>> showSaleList(@PathVariable String userName){
@@ -131,6 +138,9 @@ public class SellerAPI {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
-
+    @GetMapping("/sale/{id}")
+    public ResponseEntity<Sale> findSaleById(@PathVariable Long id){
+        Sale sale = saleService.findById(id);
+        return new ResponseEntity<>(sale, HttpStatus.OK);
+    }
 }
