@@ -61,11 +61,15 @@ public class SellerAPI {
     }
 
     //cập nhật sản phẩm
-    @PostMapping("/edit-product/{idSeller}/{idProduct}")
-    public ResponseEntity edit(@PathVariable Long idProduct,@PathVariable Long idSeller, @RequestBody Product product){
-        product.getSeller().setId(idSeller);
+    @PostMapping("/edit-product/{idProduct}/{idSeller}")
+    public ResponseEntity<Product> edit(@PathVariable Long idProduct,@PathVariable Long idSeller, @RequestBody Product product){
+        Seller seller = sellerService.findByAppUser(appUserService.findByUserId(idSeller).get());
+        product.setSeller(seller);
         product.setId(idProduct);
         productService.save(product);
+//        product.getSeller().setId(idSeller);
+//        product.setId(idProduct);
+//        productService.save(product);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
