@@ -81,7 +81,14 @@ public class SellerAPI {
 //        productService.save(product);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    @PostMapping("/edit-seller/{idSeller}")
+    public ResponseEntity<Seller> editSeller(@PathVariable Long idSeller, @RequestBody Seller seller){
+        Seller sellerEdit = sellerService.findByAppUser(appUserService.findByUserId(idSeller).get());
+        long id =  sellerEdit.getId();
+        seller.setId(id);
+        sellerService.save(seller);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
     @GetMapping("/get-product/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id){
         return new ResponseEntity<Product>(productService.findProductById(id), HttpStatus.OK);
