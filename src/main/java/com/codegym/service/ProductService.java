@@ -51,4 +51,16 @@ public class ProductService {
     public List<Product> filterByCategory(ProductCategory productCategory) {
         return iProductRepo.findProductByProductCategory(productCategory);
     }
+
+    public List<Product> findProductBySeller(Seller seller){
+        return iProductRepo.findProductBySeller(seller);
+    }
+
+    public List<Product> findAllProduct(Boolean isDelete){
+        return iProductRepo.findProductByIsDelete(isDelete);
+    }
+
+    public List<Product> findProductByName(String name){
+        return iProductRepo.findProductByNameContaining(name);
+    }
 }

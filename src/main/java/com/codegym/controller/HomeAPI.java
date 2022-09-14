@@ -1,13 +1,7 @@
 package com.codegym.controller;
 
-import com.codegym.model.Product;
-import com.codegym.model.ProductCategory;
-import com.codegym.model.ProductImage;
-import com.codegym.model.Sale;
-import com.codegym.service.ProductCategoryService;
-import com.codegym.service.ProductImageService;
-import com.codegym.service.ProductService;
-import com.codegym.service.SaleService;
+import com.codegym.model.*;
+import com.codegym.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -37,13 +31,15 @@ public class HomeAPI {
     @Autowired
     ProductCategoryService productCategoryService;
 
+    @Autowired
+    SellerService sellerService;
 
-    @GetMapping("/{page}")
-    public ResponseEntity<Page<Product>> findAllProduct(@PathVariable(required = true)int page){
-        Page<Product> products = productService.getAllProduct(false, PageRequest.of(page, 5));
+
+    @GetMapping()
+    public ResponseEntity<List<Product>> findAllProduct(){
+        List<Product> products = productService.findAllProduct(false);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
-
 
     @GetMapping("/product-detail/{id}")
     public ResponseEntity<Product> findProductById(@PathVariable Long id){
@@ -108,5 +104,16 @@ public class HomeAPI {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
+    @GetMapping("/seller/{id}")
+    public ResponseEntity<Seller> findSellerById(@PathVariable Long id){
+        Seller seller = sellerService.findSellerById(id);
+        return new ResponseEntity<>(seller, HttpStatus.OK);
+    }
 
+    @GetMapping("/products/{idSeller}")
+   public ResponseEntity<List<Product>> findProductBySeller(@PathVariable Long idSeller){
+        Seller seller = sellerService.findSellerById(idSeller);
+        List<Product> products = productService.findProductBySeller(seller);
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
 }
