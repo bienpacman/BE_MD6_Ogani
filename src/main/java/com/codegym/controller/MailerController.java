@@ -59,8 +59,8 @@ public class MailerController {
                 + " bạn đã chính thức trở thành một thành viên tham gia sàn thương mại điện tử OGANI"
                 + " cùng chung tay xây dựng OGANI ngày càng phát triển nhé! \n"
                 + "Mọi thắc mắc xin liên hệ: \n"
-                + "Hotline: 0896 110 467 \n"
-                + "Email: vvviet97@gmail.com");
+                + "Hotline: 0888 666 888 \n"
+                + "Email: riosvu97@gmail.com");
 
         //send message
         this.emailSender.send(message);
