@@ -1,9 +1,11 @@
 package com.codegym.controller;
 
 import com.codegym.model.AppUser;
+import com.codegym.model.Customer;
 import com.codegym.model.Product;
 import com.codegym.model.Seller;
 import com.codegym.service.AppUserService;
+import com.codegym.service.CustomerService;
 import com.codegym.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,6 +34,10 @@ public class AdminAPI {
     @Autowired
     MailerController mailerController;
 
+    @Autowired
+    CustomerService customerService;
+
+    //Quản lý seller
     @GetMapping("/request")
     public ResponseEntity<List<Seller>> showWaitingSeller(){
         List<Seller> sellers = sellerService.getWaitingAcceptSeller();
@@ -41,8 +47,6 @@ public class AdminAPI {
         return new ResponseEntity<>(sellers, HttpStatus.OK);
 
     }
-
-
     @PostMapping("/accept/{id}")
     public HttpEntity<Seller> acceptSeller(@PathVariable Long id ){
        Optional<Seller> seller = sellerService.findById(id);
@@ -82,6 +86,33 @@ public class AdminAPI {
         sellerService.save(activatedSeller);
         mailerController.sendEmail(activatedSeller.getAppUser());
         return new HttpEntity<Seller>(activatedSeller) ;
+    }
+
+    //Quản lý Customer
+
+    @GetMapping("/customer")
+    public ResponseEntity<List<Customer>>showListCustomers(){
+        List<Customer> customerList = customerService.getAllCustomers();
+        return new ResponseEntity<>(customerList, HttpStatus.OK);
+    }
+
+    @PostMapping("/controlCustomer/{id}")
+    public ResponseEntity<Customer> controlCustomer(@PathVariable Long id) {
+        Customer customer = customerService.findCustomerById(id);
+        if(customer.getIsActive()){
+            customer.setIsActive(false);
+        }else {
+            customer.setIsActive(true);
+        }
+        customerService.saveCustomer(customer);
+        mailerController.sendEmail(customer.getAppUser());
+        return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
+
+    @GetMapping("/customer/{id}")
+    public ResponseEntity<Customer> findCustomerById(@PathVariable Long id) {
+        Customer customer = customerService.findCustomerById(id);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
 

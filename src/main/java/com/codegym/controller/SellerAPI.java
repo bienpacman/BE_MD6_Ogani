@@ -1,15 +1,7 @@
 package com.codegym.controller;
 
-import com.codegym.model.AppUser;
-import com.codegym.model.Product;
-import com.codegym.model.Sale;
-import com.codegym.model.ProductCategory;
-import com.codegym.model.Seller;
-import com.codegym.service.AppUserService;
-import com.codegym.service.ProductCategoryService;
-import com.codegym.service.ProductService;
-import com.codegym.service.SaleService;
-import com.codegym.service.SellerService;
+import com.codegym.model.*;
+import com.codegym.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -41,6 +33,13 @@ public class SellerAPI {
 
     @Autowired
     SaleService saleService;
+
+    @Autowired
+    OrderService orderService;
+
+    @Autowired
+    OrderDetailService orderDetailService;
+
 
 
     // lấy sản phẩm theo id người bán
@@ -76,9 +75,6 @@ public class SellerAPI {
         product.setSeller(seller);
         product.setId(idProduct);
         productService.save(product);
-//        product.getSeller().setId(idSeller);
-//        product.setId(idProduct);
-//        productService.save(product);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     @PostMapping("/edit-seller/{idSeller}")
@@ -104,7 +100,14 @@ public class SellerAPI {
         return new ResponseEntity<>(sellerService.findByAppUser(appUserService.findByUserId(sellerId).get()), HttpStatus.OK);
     }
 
-    // Lấy list khuyến mại
+    @PostMapping("/getSeller")
+    public ResponseEntity<Seller> getSellerByAppUser(@RequestBody String userName){
+        AppUser appUser = appUserService.findByUserName(userName);
+        Seller seller = sellerService.findByAppUser(appUser);
+        return new ResponseEntity<>(seller, HttpStatus.OK);
+    }
+
+    // Quản lý khuyến mại
     @PostMapping("/sale/{userName}")
     public ResponseEntity<List<Sale>> showSaleList(@PathVariable String userName){
         System.out.println(userName);
@@ -126,6 +129,7 @@ public class SellerAPI {
 
     @PostMapping("/save-sale")
     public ResponseEntity<Sale> save(@RequestBody Sale sale){
+        System.out.println(sale);
         saleService.save(sale);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -140,4 +144,37 @@ public class SellerAPI {
         saleService.save(sale);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/sale/{id}")
+    public ResponseEntity<Sale> findSaleById(@PathVariable Long id){
+        Sale sale = saleService.findById(id);
+        return new ResponseEntity<>(sale, HttpStatus.OK);
+    }
+
+
+
+    //**** Quản lý đơn hàng   ****\\
+
+    // Lấy danh sách order theo tên người bán
+    @GetMapping("/orders/{id}")
+    public ResponseEntity<List<Order>> getOrderList(@PathVariable Long id){
+        Seller seller = sellerService.findSellerById(id);
+        List<Order> orders = orderService.findOrderBySeller(seller);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+    // Lấy danh sách order chi tiết theo Id Order
+    @GetMapping("/order-detail/{id}")
+    public ResponseEntity<List<OrderDetail>> getOrderDetailListByOrder(@PathVariable Long id){
+        Order order = orderService.findOrderById(id);
+        List<OrderDetail> orderDetails = orderDetailService.findOrderDetailByOrder(order);
+        return new ResponseEntity<>(orderDetails, HttpStatus.OK);
+    }
+
+    @PostMapping("/confirm-order/{id}")
+    public void confirmOrder(@PathVariable Long id){
+       orderService.confirmOrder(id);
+    }
+
+
+
 }
