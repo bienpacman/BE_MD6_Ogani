@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -54,6 +55,8 @@ public class OrderAPI {
         newOrder.setSeller(order.getSeller());
         newOrder.setPriceTotal(order.getPriceTotal());
         newOrder.setCreateAt(timestamp);
+        newOrder.setTotalCart(order.getTotalCart());
+        newOrder.setTotalDiscount(order.getTotalDiscount());
 
         return new ResponseEntity<>(orderService.save(newOrder),HttpStatus.OK);
     }
@@ -66,5 +69,20 @@ public class OrderAPI {
         newOrderDetail.setQuantity(orderDetail.getQuantity());
         newOrderDetail.setPrice(orderDetail.getPrice());
         return new ResponseEntity<>(orderDetailService.save(newOrderDetail),HttpStatus.OK);
+    }
+
+    @PostMapping("/findOrdersByCustomerId")
+    public ResponseEntity<List<Order>> findOrdersByCustomerId(@RequestBody Long idCustomer) {
+        return new ResponseEntity<>(orderService.findOrderByCustomerId(idCustomer),HttpStatus.OK);
+    }
+
+    @PostMapping("/findOrderById")
+    public ResponseEntity<Order> findOrderById(@RequestBody Long idOrder) {
+        return new ResponseEntity<>(orderService.findOrderById(idOrder),HttpStatus.OK);
+    }
+
+    @PostMapping("/findOrderDetailsByOrderId")
+    public ResponseEntity<List<OrderDetail>> findOrderDetailsByOrder(@RequestBody Long idOrder) {
+        return new ResponseEntity<>(orderDetailService.findOrderDetailByOrderId(idOrder),HttpStatus.OK);
     }
 }
