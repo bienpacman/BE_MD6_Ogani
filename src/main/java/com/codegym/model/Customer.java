@@ -19,6 +19,8 @@ public class Customer {
     private String address;
     @NotBlank
     private String phoneNumber;
+    @Column(name = "is_Active", columnDefinition = "boolean default true")
+    private Boolean isActive;
     @OneToOne
     @JoinColumn(name = "user_id")
     private AppUser appUser;

@@ -5,6 +5,8 @@ import com.codegym.repository.ICustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CustomerService {
     @Autowired
@@ -16,5 +18,17 @@ public class CustomerService {
 
     public Customer findCustomerByUserName(String userName){
         return iCustomerRepo.findCustomerByAppUser_Username(userName);
+    }
+
+    public List<Customer> getAllCustomers(){
+        return iCustomerRepo.findAll();
+    }
+
+    public Customer findCustomerById(Long id) {
+        return iCustomerRepo.findCustomerById(id);
+    }
+
+    public Customer saveCustomer(Customer customer) {
+        return iCustomerRepo.save(customer);
     }
 }
