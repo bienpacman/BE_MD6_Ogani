@@ -17,6 +17,8 @@ public interface IOrderRepo extends JpaRepository<Order, Long> {
 
     List<Order> findOrderBySeller(Seller seller);
 
+    List<Order> findOrderBySellerId(long id);
+
     Order findOrderById(Long id);
     @Modifying
     @Transactional
