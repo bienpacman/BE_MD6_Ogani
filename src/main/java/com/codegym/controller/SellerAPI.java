@@ -156,10 +156,12 @@ public class SellerAPI {
     //**** Quản lý đơn hàng   ****\\
 
     // Lấy danh sách order theo tên người bán
-    @GetMapping("/orders/{id}")
-    public ResponseEntity<List<Order>> getOrderList(@PathVariable Long id){
-        Seller seller = sellerService.findSellerById(id);
-        List<Order> orders = orderService.findOrderBySeller(seller);
+    @GetMapping("/orders/{idSeller}")
+    public ResponseEntity<List<Order>> getOrderList(@PathVariable Long idSeller){
+        Seller sell = sellerService.findByAppUser(appUserService.findByUserId(idSeller).get());
+        long id = sell.getId();
+//        List<Order> orders = orderService.findOrderBySeller(sell);
+        List<Order> orders = orderService.findOrderBySellerId(id);
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
     // Lấy danh sách order chi tiết theo Id Order

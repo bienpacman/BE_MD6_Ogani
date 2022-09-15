@@ -22,6 +22,10 @@ public class OrderService {
         return iOrderRepo.findOrderBySeller(seller);
     }
 
+    public List<Order> findOrderBySellerId(long id){
+        return iOrderRepo.findOrderBySellerId(id);
+    }
+
     public Order findOrderById(Long id){
         return iOrderRepo.findOrderById(id);
     }
