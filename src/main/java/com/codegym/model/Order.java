@@ -22,4 +22,6 @@ public class Order {
     private Customer customer;
     @ManyToOne
     private Seller seller;
+    private double totalCart;
+    private double totalDiscount;
 }

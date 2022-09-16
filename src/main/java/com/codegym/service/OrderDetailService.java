@@ -17,6 +17,10 @@ public class OrderDetailService {
         return iOrderDetailRepo.save(orderDetail);
     }
 
+    public List<OrderDetail> findOrderDetailByOrderId(Long idOrder){
+        return iOrderDetailRepo.findOrderDetailByOrderId(idOrder);
+    }
+
     public List<OrderDetail> findOrderDetailByOrder(Order order){
         return iOrderDetailRepo.findOrderDetailByOrder(order);
     }
