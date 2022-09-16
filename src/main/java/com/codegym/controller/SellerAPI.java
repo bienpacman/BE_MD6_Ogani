@@ -162,7 +162,7 @@ public class SellerAPI {
         return new ResponseEntity<>(orderDetails, HttpStatus.OK);
     }
 
-    @PostMapping("/confirm-order/{id}")
+    @GetMapping("/confirm-order/{id}")
     public void confirmOrder(@PathVariable Long id){
        orderService.confirmOrder(id);
     }
