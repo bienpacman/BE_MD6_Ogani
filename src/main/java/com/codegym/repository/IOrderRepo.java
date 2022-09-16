@@ -17,7 +17,11 @@ public interface IOrderRepo extends JpaRepository<Order, Long> {
 
     List<Order> findOrderBySeller(Seller seller);
 
+    @Query(nativeQuery = true, value = "SELECT * FROM md6_case.orders where order_status_id = 1;")
     List<Order> findOrderBySellerId(long id);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM md6_case.orders where order_status_id = 2;")
+    List<Order> findOrderConfirmedBySellerId(long id);
 
     Order findOrderById(Long id);
     @Modifying
