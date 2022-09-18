@@ -31,4 +31,12 @@ public class CustomerService {
     public Customer saveCustomer(Customer customer) {
         return iCustomerRepo.save(customer);
     }
+
+    public List<Customer> findInActiveCustomer() {
+        return iCustomerRepo.findInActiveCustomer();
+    }
+
+    public List<Customer> findActiveCustomer() {
+        return iCustomerRepo.findActiveCustomer();
+    }
 }
