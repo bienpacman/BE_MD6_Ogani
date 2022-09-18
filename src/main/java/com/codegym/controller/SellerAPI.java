@@ -117,7 +117,7 @@ public class SellerAPI {
         Date now = new Date();
         Timestamp timestamp = new Timestamp(now.getTime());
         for (Sale sale: saleList) {
-            if( timestamp.before(sale.getStartAt() ) ||(timestamp.after(sale.getStartAt()) && timestamp.before(sale.getEndAt()))) {
+            if( timestamp.before(sale.getStartAt()) ||(timestamp.after(sale.getStartAt()) && timestamp.before(sale.getEndAt()))) {
                 sale.setStatus(true);
             }else {
                 sale.setStatus(false);
