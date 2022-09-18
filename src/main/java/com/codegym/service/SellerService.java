@@ -57,4 +57,12 @@ public class SellerService {
     public Seller findSellerById(Long id) {
         return iSellerRepo.findSellerById(id);
     }
+
+    public List<Seller> filterSellerByNameDown(){
+        return iSellerRepo.filterCustomerByNameDesc();
+    }
+
+    public List<Seller> filterSellerByNameUp(){
+        return iSellerRepo.filterCustomerByNameAsc();
+    }
 }
