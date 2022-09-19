@@ -1,5 +1,6 @@
 package com.codegym.service;
 
+import com.codegym.model.AppUser;
 import com.codegym.model.Customer;
 import com.codegym.repository.ICustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,9 @@ public class CustomerService {
 
     public List<Customer> findActiveCustomer() {
         return iCustomerRepo.findActiveCustomer();
+    }
+
+    public Customer findCustomerByAppUser(AppUser appUser){
+        return iCustomerRepo.findCustomerByAppUser(appUser);
     }
 }

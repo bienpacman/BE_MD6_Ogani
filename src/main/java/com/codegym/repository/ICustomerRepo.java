@@ -1,5 +1,6 @@
 package com.codegym.repository;
 
+import com.codegym.model.AppUser;
 import com.codegym.model.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,5 +22,6 @@ public interface ICustomerRepo extends JpaRepository<Customer, Long> {
     List<Customer> findActiveCustomer();
 
 
+    Customer findCustomerByAppUser(AppUser appUser);
 
 }
