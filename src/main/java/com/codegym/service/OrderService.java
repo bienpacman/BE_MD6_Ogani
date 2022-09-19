@@ -40,4 +40,20 @@ public class OrderService {
     public void confirmOrder(Long idOrder){
         iOrderRepo.confirmOrder(idOrder);
     }
+
+    public List<Order> findOrderConfirmedByPriceTotalAsc(int id){
+        return iOrderRepo.findOrdersConfirmedASC(id);
+    }
+
+    public List<Order> findOrderConfirmedByPriceTotalDesc(int id){
+        return iOrderRepo.findOrdersConfirmedDESC(id);
+    }
+
+    public List<Order> findOrderConfirmedByDateAsc(int id){
+        return iOrderRepo.findOrdersConfirmedDateASC(id);
+    }
+
+    public List<Order> findOrderConfirmedByDateDesc(int id){
+        return iOrderRepo.findOrdersConfirmedDateDESC(id);
+    }
 }

@@ -186,6 +186,27 @@ public class SellerAPI {
        orderService.confirmOrder(id);
     }
 
+    @GetMapping("/price-up")
+    public ResponseEntity<List<Order>> findOrderConfirmedByPriceTotalAsc(){
+        List<Order> orders = orderService.findOrderConfirmedByPriceTotalAsc(2);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
 
+    @GetMapping("/price-down")
+    public ResponseEntity<List<Order>> findOrderConfirmedByPriceTotalDesc(){
+        List<Order> orders = orderService.findOrderConfirmedByPriceTotalDesc(2);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
 
+    @GetMapping("/date-up")
+    public ResponseEntity<List<Order>> findOrderConfirmedByDateAsc(){
+        List<Order> orders = orderService.findOrderConfirmedByDateAsc(2);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
+    @GetMapping("/date-down")
+    public ResponseEntity<List<Order>> findOrderConfirmedByDateDesc(){
+        List<Order> orders = orderService.findOrderConfirmedByDateDesc(2);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
 }
