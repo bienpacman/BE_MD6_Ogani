@@ -23,6 +23,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
     implementation 'org.springframework.boot:spring-boot-starter-web-services'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
     compileOnly 'org.projectlombok:lombok'
@@ -41,6 +42,11 @@ dependencies {
     implementation group: 'org.hibernate', name: 'hibernate-validator', version: '6.0.10.Final'
     //Email
     implementation 'org.springframework.boot:spring-boot-starter-mail'
+    //web socket
+    implementation group: 'org.springframework', name: 'spring-web', version: '5.3.20'
+    implementation group: 'org.webjars', name: 'stomp-websocket', version: '2.3.3'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.7.2'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket'
 }
 
 tasks.named('test') {
