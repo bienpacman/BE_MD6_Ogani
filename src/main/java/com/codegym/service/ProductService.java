@@ -21,6 +21,17 @@ public class ProductService {
         Page<Product> products = iProductRepo.findProductBySellerId(id, pageable);
         return products;
     }
+
+    public List<Product> getProductByPriceASC(Long id){
+        List<Product> products = iProductRepo.findProductsASC(id);
+        return products;
+    }
+
+    public List<Product> getProductByPriceDESC(Long id){
+        List<Product> products = iProductRepo.findProductsDESC(id);
+        return products;
+    }
+
     public Page<Product> getAllProduct(Boolean isDelete, Pageable pageable){
         return iProductRepo.findProductByIsDelete(isDelete, pageable);
     }

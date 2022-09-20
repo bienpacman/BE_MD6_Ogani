@@ -52,6 +52,22 @@ public class SellerAPI {
         return new ResponseEntity<>(products, HttpStatus.OK) ;
     }
 
+    @GetMapping("/show/{idSeller}/price-up")
+    public ResponseEntity<List<Product>> getProductByPriceASC(@PathVariable Long idSeller){
+        Seller sellerEdit = sellerService.findByAppUser(appUserService.findByUserId(idSeller).get());
+        long id = sellerEdit.getId();
+        List<Product> products = productService.getProductByPriceASC(id);
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+    @GetMapping("/show/{idSeller}/price-down")
+    public ResponseEntity<List<Product>> getProductByPriceDESC(@PathVariable Long idSeller){
+        Seller sellerEdit = sellerService.findByAppUser(appUserService.findByUserId(idSeller).get());
+        long id = sellerEdit.getId();
+        List<Product> products = productService.getProductByPriceDESC(id);
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
     //tạo sản phẩm
     @PostMapping("/save-product/{userId}")
     public ResponseEntity<Product> save(@RequestBody Product product, @PathVariable Long userId){

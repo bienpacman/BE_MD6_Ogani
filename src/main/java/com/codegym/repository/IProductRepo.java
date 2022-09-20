@@ -1,5 +1,6 @@
 package com.codegym.repository;
 
+import com.codegym.model.Order;
 import com.codegym.model.Product;
 import com.codegym.model.ProductCategory;
 import com.codegym.model.Seller;
@@ -20,6 +21,12 @@ public interface IProductRepo extends CrudRepository<Product, Long> {
 //    Product getProductById(Long id);
 
     Page<Product> findProductBySellerId(Long id, Pageable pageable);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM md6_case.product where seller_id =:id order by price asc;")
+    List<Product> findProductsASC(Long id);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM md6_case.product where seller_id =:id order by price desc ;")
+    List<Product> findProductsDESC(Long id);
     @Query(nativeQuery = true, value = "SELECT * FROM md6_case.product;")
     List<Product> getAllProduct();
 
