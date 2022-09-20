@@ -17,5 +17,7 @@ public class OrderDetail {
     private Order order;
     private double quantity;
     private double price;
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isRated;
 
 }

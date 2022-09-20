@@ -24,4 +24,8 @@ public class OrderDetailService {
     public List<OrderDetail> findOrderDetailByOrder(Order order){
         return iOrderDetailRepo.findOrderDetailByOrder(order);
     }
+
+    public OrderDetail findOrderDetailById(Long idOrderDetail){
+        return iOrderDetailRepo.findOrderDetailByIdOrderDetail(idOrderDetail);
+    }
 }

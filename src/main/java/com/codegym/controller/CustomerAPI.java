@@ -1,9 +1,11 @@
 package com.codegym.controller;
 
 import com.codegym.model.Customer;
+import com.codegym.model.OrderDetail;
 import com.codegym.model.ProductComment;
 import com.codegym.model.Seller;
 import com.codegym.service.CustomerService;
+import com.codegym.service.OrderDetailService;
 import com.codegym.service.ProductCommentService;
 import com.codegym.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class CustomerAPI {
     @Autowired
     ProductCommentService productCommentService;
 
+    @Autowired
+    OrderDetailService orderDetailService;
+
     @PostMapping("/findCustomerByUserName")
     public ResponseEntity<Customer> findCustomerByUserID(@RequestBody String userName){
         Customer customer = customerService.findCustomerByUserName(userName);
@@ -48,8 +53,15 @@ public class CustomerAPI {
 
     @PostMapping("/findProductCommentListByProductId")
     public ResponseEntity<List<ProductComment>> findProductCommentListByProductId(@RequestBody Long idProduct){
-
         return new ResponseEntity<List<ProductComment>>(productCommentService.findProductCommentListByProductId(idProduct), HttpStatus.OK);
+    }
+
+    @PostMapping("/changeIsRatedInOrderDetail")
+    public ResponseEntity<OrderDetail> changeIsRatedInOrderDetail(@RequestBody Long idOrderDetail){
+        OrderDetail orderDetail = orderDetailService.findOrderDetailById(idOrderDetail);
+        orderDetail.setIsRated(true);
+        orderDetailService.save(orderDetail);
+        return new ResponseEntity<OrderDetail>(orderDetail, HttpStatus.OK);
     }
 
 }
