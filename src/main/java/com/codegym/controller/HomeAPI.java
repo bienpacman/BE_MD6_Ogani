@@ -122,6 +122,10 @@ public class HomeAPI {
         List<Product> products = productService.findProductBySeller(seller);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
+
+
+
+
 }
 
 
