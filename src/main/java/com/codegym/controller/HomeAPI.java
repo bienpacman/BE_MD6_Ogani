@@ -109,7 +109,7 @@ public class HomeAPI {
     @GetMapping("/category/{id}")
     public ResponseEntity<List<Product>> filterByCategory(@PathVariable Long id){
         ProductCategory productCategory = productCategoryService.findCategoryById(id);
-        List<Product> products = productService.filterByCategory(productCategory);
+        List<Product> products = productService.filterByCategory(id);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 

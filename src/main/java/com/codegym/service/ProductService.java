@@ -60,8 +60,8 @@ public class ProductService {
         return iProductRepo.findProductByIsDeleteOrderByPriceAsc(isDelete);
     }
 
-    public List<Product> filterByCategory(ProductCategory productCategory) {
-        return iProductRepo.findProductByProductCategory(productCategory);
+    public List<Product> filterByCategory(Long idProductCategory) {
+        return iProductRepo.findProductByProductCategory(idProductCategory);
     }
 
     public List<Product> findProductBySeller(Seller seller){

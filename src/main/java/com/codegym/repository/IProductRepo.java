@@ -46,7 +46,8 @@ public interface IProductRepo extends CrudRepository<Product, Long> {
 
     List<Product> findProductByIsDeleteOrderByPriceAsc(Boolean isDelete);
 
-    List<Product> findProductByProductCategory(ProductCategory productCategory);
+    @Query(nativeQuery = true, value = "SELECT * FROM md6_case.product join seller on product.seller_id = seller.id  where product.product_category_id =:idProductCategory && product.is_delete = false && seller.is_active = true;")
+    List<Product> findProductByProductCategory(Long idProductCategory);
 
     List<Product> findProductBySeller(Seller seller);
 
