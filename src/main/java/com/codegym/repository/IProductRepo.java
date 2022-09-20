@@ -24,8 +24,8 @@ public interface IProductRepo extends CrudRepository<Product, Long> {
     List<Product> getAllProduct();
 
     Page<Product> findProductByIsDelete(Boolean isDelete, Pageable pageable);
-
-    List<Product> findProductByIsDelete(Boolean isDelete);
+    @Query(nativeQuery = true, value = "SELECT * FROM md6_case.product  join seller on product.seller_id = seller.id where seller.is_active = true && product.is_delete = false;")
+    List<Product> findProductByIsDelete();
 
     @Query(nativeQuery = true, value = "SELECT * FROM seller where name like concat('%',:name,'%');")
     List<Product> findProductByNameContaining(String name);

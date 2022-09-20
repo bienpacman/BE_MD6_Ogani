@@ -46,7 +46,7 @@ public class HomeAPI {
 
     @GetMapping()
     public ResponseEntity<List<Product>> findAllProduct(){
-        List<Product> products = productService.findAllProduct(false);
+        List<Product> products = productService.findAllProduct();
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
