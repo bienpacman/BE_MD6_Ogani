@@ -2,6 +2,7 @@ package com.codegym.repository;
 
 import com.codegym.model.AppUser;
 
+import com.codegym.model.Customer;
 import com.codegym.model.Seller;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,11 +27,14 @@ public interface ISellerRepo extends JpaRepository<Seller, Long> {
     Page<Seller>showSeller(Pageable pageable);
 
     Seller findSellerByAppUser(AppUser appUser);
-
-
-
+    
     Seller findSellerById(Long id);
 
+    @Query(nativeQuery = true, value = "SELECT * FROM md6_case.seller order by name desc;")
+    List<Seller> filterCustomerByNameDesc();
+
+    @Query(nativeQuery = true, value = "SELECT * FROM md6_case.seller order by name asc;")
+    List<Seller> filterCustomerByNameAsc();
 
 
 }

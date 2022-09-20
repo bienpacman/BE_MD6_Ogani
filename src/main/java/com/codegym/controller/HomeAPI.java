@@ -34,6 +34,12 @@ public class HomeAPI {
     @Autowired
     SellerService sellerService;
 
+    @Autowired
+    AppUserService appUserService;
+
+    @Autowired
+    CustomerService customerService;
+
 
     @GetMapping()
     public ResponseEntity<List<Product>> findAllProduct(){
@@ -116,4 +122,17 @@ public class HomeAPI {
         List<Product> products = productService.findProductBySeller(seller);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
+
+
+
+
 }
+
+
+    // Quản lý tài khoản bị BAN
+
+
+
+
+
+

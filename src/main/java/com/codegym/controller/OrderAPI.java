@@ -68,6 +68,7 @@ public class OrderAPI {
         newOrderDetail.setProduct(orderDetail.getProduct());
         newOrderDetail.setQuantity(orderDetail.getQuantity());
         newOrderDetail.setPrice(orderDetail.getPrice());
+        newOrderDetail.setIsRated(false);
         return new ResponseEntity<>(orderDetailService.save(newOrderDetail),HttpStatus.OK);
     }
 
@@ -85,4 +86,5 @@ public class OrderAPI {
     public ResponseEntity<List<OrderDetail>> findOrderDetailsByOrder(@RequestBody Long idOrder) {
         return new ResponseEntity<>(orderDetailService.findOrderDetailByOrderId(idOrder),HttpStatus.OK);
     }
+
 }

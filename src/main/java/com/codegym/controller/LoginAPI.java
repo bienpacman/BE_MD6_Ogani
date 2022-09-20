@@ -100,4 +100,19 @@ public class LoginAPI {
             return new ResponseEntity<>(true,HttpStatus.OK);
         }
     }
+
+    @PostMapping("/getSeller")
+    public ResponseEntity<Seller> getSellerByAppUser(@RequestBody String userName){
+        AppUser appUser = appUserService.findByUserName(userName);
+        Seller seller = sellerService.findByAppUser(appUser);
+        return new ResponseEntity<>(seller, HttpStatus.OK);
+    }
+
+    @PostMapping("/getCustomer")
+    public ResponseEntity<Customer> getCustomerByAppUser(@RequestBody String userName){
+        AppUser appUser = appUserService.findByUserName(userName);
+        Customer customer = customerService.findCustomerByAppUser(appUser);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
 }
+

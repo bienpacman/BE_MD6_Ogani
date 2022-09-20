@@ -1,18 +1,12 @@
 package com.codegym.controller;
 
-import com.codegym.model.AppUser;
+
 import com.codegym.model.Customer;
-import com.codegym.model.Product;
 import com.codegym.model.Seller;
 import com.codegym.service.AppUserService;
 import com.codegym.service.CustomerService;
 import com.codegym.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -88,6 +82,19 @@ public class AdminAPI {
         return new HttpEntity<Seller>(activatedSeller) ;
     }
 
+    @GetMapping("/seller-name-up")
+    public ResponseEntity<List<Seller>> filterSellerByNameUp(){
+        List<Seller> sellers = sellerService.filterSellerByNameUp();
+        return new ResponseEntity<>(sellers, HttpStatus.OK);
+    }
+
+    @GetMapping("/seller-name-down")
+    public ResponseEntity<List<Seller>> filterSellerByNameDown(){
+        List<Seller> sellers = sellerService.filterSellerByNameDown();
+        return new ResponseEntity<>(sellers, HttpStatus.OK);
+    }
+
+
     //Quản lý Customer
 
     @GetMapping("/customer")
@@ -113,6 +120,18 @@ public class AdminAPI {
     public ResponseEntity<Customer> findCustomerById(@PathVariable Long id) {
         Customer customer = customerService.findCustomerById(id);
         return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
+
+    @GetMapping("/customer-inactive")
+    public ResponseEntity<List<Customer>> filterInActiveCustomer(){
+        List<Customer> customers = customerService.findInActiveCustomer();
+        return new ResponseEntity<>(customers, HttpStatus.OK);
+    }
+
+    @GetMapping("/customer-active")
+    public ResponseEntity<List<Customer>> filterActiveCustomer(){
+        List<Customer> customers = customerService.findActiveCustomer();
+        return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
 
