@@ -5,9 +5,11 @@ import com.codegym.model.ProductCategory;
 import com.codegym.model.Seller;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface IProductRepo extends CrudRepository<Product, Long> {
@@ -40,5 +42,10 @@ public interface IProductRepo extends CrudRepository<Product, Long> {
     List<Product> findProductByProductCategory(ProductCategory productCategory);
 
     List<Product> findProductBySeller(Seller seller);
+
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value = "update md6_case.product set product.is_delete = 1 where product.id =:id")
+    void setIsDeleteTrue(Long id);
 
 }

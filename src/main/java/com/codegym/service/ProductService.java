@@ -28,8 +28,8 @@ public class ProductService {
         iProductRepo.save(product);
     }
 
-    public void delete(long id){
-        iProductRepo.deleteById(id);
+    public void isDeleteTrue(long id){
+        iProductRepo.setIsDeleteTrue(id);
     }
 
     public Product findProductById(long id){

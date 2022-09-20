@@ -64,7 +64,7 @@ public class SellerAPI {
     //xóa sản phẩm
     @GetMapping("/delete-product/{id}")
     public ResponseEntity delete(@PathVariable Long id){
-        productService.delete(id);
+        productService.isDeleteTrue(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 
