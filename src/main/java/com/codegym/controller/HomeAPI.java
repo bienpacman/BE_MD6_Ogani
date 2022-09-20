@@ -40,6 +40,9 @@ public class HomeAPI {
     @Autowired
     CustomerService customerService;
 
+    @Autowired
+    ProductCommentService productCommentService;
+
 
     @GetMapping()
     public ResponseEntity<List<Product>> findAllProduct(){
@@ -123,7 +126,10 @@ public class HomeAPI {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-
+    @PostMapping("/findProductCommentListByProductId")
+    public ResponseEntity<List<ProductComment>> findProductCommentListByProductId(@RequestBody Long idProduct){
+        return new ResponseEntity<List<ProductComment>>(productCommentService.findProductCommentListByProductId(idProduct), HttpStatus.OK);
+    }
 
 
 }

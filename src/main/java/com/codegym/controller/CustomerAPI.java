@@ -55,10 +55,10 @@ public class CustomerAPI {
         return new ResponseEntity<ProductComment>(productCommentService.save(productComment), HttpStatus.OK);
     }
 
-    @PostMapping("/findProductCommentListByProductId")
-    public ResponseEntity<List<ProductComment>> findProductCommentListByProductId(@RequestBody Long idProduct){
-        return new ResponseEntity<List<ProductComment>>(productCommentService.findProductCommentListByProductId(idProduct), HttpStatus.OK);
-    }
+//    @PostMapping("/findProductCommentListByProductId")
+//    public ResponseEntity<List<ProductComment>> findProductCommentListByProductId(@RequestBody Long idProduct){
+//        return new ResponseEntity<List<ProductComment>>(productCommentService.findProductCommentListByProductId(idProduct), HttpStatus.OK);
+//    }
 
     @PostMapping("/changeIsRatedInOrderDetail")
     public ResponseEntity<OrderDetail> changeIsRatedInOrderDetail(@RequestBody Long idOrderDetail){
