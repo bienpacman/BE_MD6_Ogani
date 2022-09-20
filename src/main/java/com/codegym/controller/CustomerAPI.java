@@ -3,6 +3,7 @@ package com.codegym.controller;
 import com.codegym.model.Customer;
 import com.codegym.model.ProductComment;
 import com.codegym.model.Seller;
+import com.codegym.service.AppUserService;
 import com.codegym.service.CustomerService;
 import com.codegym.service.ProductCommentService;
 import com.codegym.service.ProductService;
@@ -28,6 +29,9 @@ public class CustomerAPI {
     @Autowired
     ProductCommentService productCommentService;
 
+    @Autowired
+    AppUserService appUserService;
+
     @PostMapping("/findCustomerByUserName")
     public ResponseEntity<Customer> findCustomerByUserID(@RequestBody String userName){
         Customer customer = customerService.findCustomerByUserName(userName);
@@ -50,6 +54,20 @@ public class CustomerAPI {
     public ResponseEntity<List<ProductComment>> findProductCommentListByProductId(@RequestBody Long idProduct){
 
         return new ResponseEntity<List<ProductComment>>(productCommentService.findProductCommentListByProductId(idProduct), HttpStatus.OK);
+    }
+
+    // Edit profile Customer
+    @PostMapping("/edit-customer")
+    public ResponseEntity<Customer> editCustomer(@RequestBody Customer customer){
+        appUserService.save(customer.getAppUser());
+        customerService.saveCustomer(customer);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/customer/{id}")
+    public ResponseEntity<Customer> findCustomerById(@PathVariable Long id) {
+        Customer customer = customerService.findCustomerById(id);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
 }
